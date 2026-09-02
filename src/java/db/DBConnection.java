@@ -1,21 +1,32 @@
-public class DBConnection {
 
-    public static Connection getConnection() {
-        Connection con = null;
+        package db;
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = System.getenv("DB_URL");
-            String username = System.getenv("DB_USERNAME");
-            String password = System.getenv("DB_PASSWORD");
+        import java.sql.Connection;
+        import java.sql.DriverManager;
 
-            con = DriverManager.getConnection(url, username, password);
+        public class DBConnection {
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            public static Connection getConnection() {
+
+                     Connection connection=null;
+
+                try {
+
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                    connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshiftinghub","root","root");
+
+
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+                }
+
+                    return connection;
+
+            }
+
         }
-
-        return con;
-    }
-}
