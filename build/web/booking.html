@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background-color: lavender;
+      height: 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px;
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1001;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #f0f0ff;
+      transition: all 0.8s ease;
+      padding-top: 20px;
+      height: calc(100vh - 80px);
+      position: absolute;
+      top: 80px;
+      left: 0;
+      border-right: 2px solid lavender;
+      z-index: 1;
+    }
+
+    .sidebar.collapsed {
+      width: 60px;
+    }
+
+    .sidebar .nav-link {
+      color: #333;
+      font-size: 1rem;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: 0.2s;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: #dcdcff;
+      border-radius: 8px;
+    }
+
+    .sidebar .nav-link .icon {
+      display: inline-block;
+      width: 25px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-right: 10px;
+    }
+
+    .sidebar .nav-link .text {
+      display: inline-block;
+      transition: margin-left 0.5s ease-in-out; /*smooth motion */
+      animation: fadeInSlide 0.6s ease;
+      
+    }
+
+    .sidebar.collapsed .nav-link .text {
+      display: none;
+
+    }
+
+    .sidebar.collapsed .nav-link .icon {
+      margin-right: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .content {
+      margin-left: 220px;
+      margin-top: 40px;
+      padding: 20px;
+      transition: margin-left 0.5s ease-in-out; /*smooth motion */
+      animation: fadeInSlide 0.6s ease;
+    }
+
+    .sidebar.collapsed + .content {
+      margin-left: 60px;
+    }
+
+  
+   
+
+
+    @keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* styling for main content */
+
+.card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .greeting {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <span class="hamburger" onclick="toggleSidebar()">&#9776;</span>
+      <a class="navbar-brand ms-5 logo" href="#"><img src="icons/logo.png" alt="logo" width="100" height="75"></span></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <form class="d-none d-md-flex mx-auto" role="search" style="width: 450px;">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0 rounded-start-pill">
+            <i class="fas fa-search text-muted"></i>
+          </span>
+          <input class="form-control border-start-0 rounded-end-pill" type="search" placeholder="Search..." aria-label="Search">
+        </div>
+      </form>
+
+      <!-- <form class="d-none d-lg-flex mx-auto" role="search" style="width: 300px;">
+        <input class="form-control px-3" type="search" placeholder="Search" aria-label="Search">
+      </form> -->
+
+
+      <!-- simple search was taking whole width so upper one is updated search bar  -->
+      <!-- <input class="form-control rounded-pill px-4" type="search" placeholder="Search" aria-label="Search"> -->
+
+      <!-- navbar content hidden -->
+
+        <!-- <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <a class="nav-link p-0 me-2 mt-2" href="#">
+            <img src="images/image.png" alt="Log out" style="width: 30px; height: 30px; object-fit: contain;">
+          </a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown">
+              Support
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Feedback</a></li>
+              <li><a class="dropdown-item" href="#">Complain</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Guide</a></li>
+            </ul>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ Sidebar -->
+  <div id="sidebar" class="sidebar">
+
+    <nav class="nav flex-column ">
+      <a class="nav-link" href="loginpage.html"><span class="icon"><img src="icons/home.png" alt="Home" width="20" height="20"></span><span class="text">Home</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/product.png" alt="Product" width="20" height="20"></span><span class="text">Product</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/booking.png" alt="Booking" width="20" height="20"></span><span class="text">Booking</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/sell.png" alt="Sell" width="20" height="20"></span><span class="text">Sell</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/account.png" alt="Account" width="20" height="20"></span><span class="text">Account</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/feedback.png" alt="Feedback" width="20" height="20"></span><span class="text">Feedback</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/complain.png" alt="Complain" width="20" height="20"></span><span class="text">Complain</span></a>
+      <a class="nav-link" href="#"><span class="icon"><img src="icons/logout.png" alt="Logout" width="20" height="20"></span><span class="text">Logout</span></a>
+    </nav>
+  </div>
+
+  <!-- ✅ Main Content -->
+
+  <!-- <div class="content">
+    <h2>Welcome to The Shifting Hub</h2>
+    <p>Click the ☰ icon to toggle sidebar</p>
+  </div> -->
+
+  <div class="container content py-4 ">
+    <!-- Welcome Section -->
+    <div class="mb-4">
+      <p class="greeting">Welcome back, Priya! 👋</p>
+      <p class="text-muted">Every move is a new beginning – we’re here to make it smooth!</p>
+    </div>
+
+    <!-- Bookings Overview -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5 class="section-title">Your Next Move</h5>
+          <p><strong>Pickup:</strong> Indore</p>
+          <p><strong>Drop:</strong> Bhopal</p>
+          <p><strong>Date:</strong> 20 April, 2025</p>
+          <span class="badge bg-success">Confirmed</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5 class="section-title">Status Overview</h5>
+          <p>Total Bookings: <strong>4</strong></p>
+          <p>Completed Shifts: <strong>3</strong></p>
+          <p>Pending Complaints: <strong>1</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Booking-like Cards -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5 class="section-title">Service Requested</h5>
+          <p><strong>Pickup:</strong> Ujjain</p>
+          <p><strong>Drop:</strong> Gwalior</p>
+          <p><strong>Date:</strong> 25 April, 2025</p>
+          <span class="badge bg-warning text-dark">In Progress</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5 class="section-title">Last Complaint Raised</h5>
+          <p><strong>Issue:</strong> Damaged Items</p>
+          <p><strong>Status:</strong> Under Review</p>
+          <p><strong>Date:</strong> 05 April, 2025</p>
+          <span class="badge bg-danger">Pending</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div>
+      <h5 class="section-title mb-3">Notifications</h5>
+      <ul class="list-group">
+        <li class="list-group-item">Your truck has been dispatched for the upcoming shift.</li>
+        <li class="list-group-item">You have successfully raised a complaint. We'll get back to you soon.</li>
+        <li class="list-group-item">Thank you for your payment!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ✅ Script -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("collapsed");
+
+      const content = document.querySelector(".content");
+      if (sidebar.classList.contains("collapsed")) {
+        content.style.marginLeft = "60px";
+      } else {
+        content.style.marginLeft = "220px";
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
